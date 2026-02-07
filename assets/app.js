@@ -176,7 +176,6 @@ function buildCategoryStatsFromIndex(categoriesIndex){
 }
 
 function buildCategoryStats(posts){
-(posts){
   const map = new Map();
   for(const p of posts){
     const c = normalizeCategory(p);
@@ -185,6 +184,7 @@ function buildCategoryStats(posts){
   const cats = [...map.keys()].sort((a,b)=>String(a).localeCompare(String(b), "ko"));
   return { map, cats };
 }
+
 
 function renderCategoryBar({ cats, counts, selected, onSelect }){
   const bar = document.getElementById("categoryBar");
@@ -390,7 +390,8 @@ function renderCards(posts){
     selected = cat || "all";
 
     // URL 반영 + 로컬 저장
-    applyCategoryToUrlAndStorage(selected);
+    syncCategoryToUrlAndStorage(selected);
+
 
     // 데이터 소스 교체
     if(selected === "all"){
