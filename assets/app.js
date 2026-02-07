@@ -16,6 +16,16 @@
 
 const PAGE_SIZE = 12;
 
+// ✅ 데이터 파일 경로(Cloudflare Pages 기준: 루트 절대경로 사용)
+// - posts.json: 전체 목록(원본)
+// - posts-lite.json: 최신 N개(빌드 시 자동 생성)
+// - categories-index.json: 카테고리 목록/개수(빌드 시 자동 생성)
+// - category/<slug>.json: 특정 카테고리 글 목록(빌드 시 자동 생성)
+const POSTS_FULL_URL = "/data/posts.json";
+const POSTS_LITE_URL = "/data/posts-lite.json";
+const CATEGORIES_INDEX_URL = "/data/categories-index.json";
+const CATEGORY_DIR_URL = "/data/category/";
+
 function escapeHtml(s){
   return String(s ?? "")
     .replaceAll("&","&amp;")
