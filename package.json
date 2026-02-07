@@ -1,0 +1,8 @@
+{
+  "name": "wackywiki",
+  "private": true,
+  "version": "1.1.8",
+  "scripts": {
+    "build": "node tools/build-indexes.js"
+  }
+}

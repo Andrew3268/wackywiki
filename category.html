@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <title>카테고리 글 모아보기 | WackyWiki</title>
+  <meta name="description" content="카테고리를 눌러 같은 카테고리의 글만 모아서 볼 수 있는 카테고리 전용 목록 페이지입니다." />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- ✅ (4) CSS -->
+  <link rel="stylesheet" href="/assets/index.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="site-header" role="banner">
+      <div class="brand-section">
+        <h1 class="brand-name">WACKY WIKI<br>CURATION ARCHIVE</h1>
+        <p class="brand-tagline">
+          “어떤 상황에서 어떤 제품이 좋은지”<br>
+          불필요한 정보를 걷어내고 본질만을 한눈에 정리합니다.
+        </p>
+      </div>
+
+      <div class="action-section">
+        <div class="search-container">
+          <span class="search-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input id="q" type="search" placeholder="궁금한 정보를 검색해보세요." autocomplete="off" />
+        </div>
+      </div>
+    </header>
+
+    <div class="meta-row" role="status" aria-live="polite">
+      <span>총 <strong id="count">0</strong>개의 분석 리포트</span>
+      <span style="opacity: 0.3">|</span>
+      <span id="hint">로드 중...</span>
+    </div>
+
+    <!-- ✅ index와 같은 위치/모양(필터바)로 태그 pill 표시 -->
+    <div class="filterbar" aria-label="카테고리 필터">
+      <div class="filterbar__chips" role="tablist" aria-label="선택된 카테고리">
+        <span class="pill" id="catPill">카테고리: -</span>
+        <a class="pill" href="/index.html" style="text-decoration:none;">전체</a>
+      </div>
+    </div>
+
+    <main id="main">
+      <section aria-label="글 목록">
+        <div id="grid" class="grid"></div>
+        <div id="state" class="state" hidden></div>
+      
+        <div class="loadmore-wrap" id="loadMoreWrap" hidden>
+          <button id="loadMoreBtn" class="pill" type="button">더보기</button>
+        </div>
+</section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <span>© <span id="year"></span> WackyWiki.</span>
+      <nav>
+        <a href="/sitemap.xml">sitemap</a> · <a href="/about_us.html">about us</a>
+      </nav>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+<script src="/assets/category.js" defer></script>
+</body>
+</html>

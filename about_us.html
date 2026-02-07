@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Canopy Style</title>
+    <style>
+        /* 기본 폰트 설정 (영문 Serif와 국문 Sans-serif 조화) */
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --bg-color: #fcfcfc;
+            --text-main: #1a1a1a;
+            --text-sub: #666;
+            --accent: #2d3436;
+            --container-width: 1000px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section - Canopy 특유의 정갈한 텍스트 배치 */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-sub);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* 이미지 섹션 - 둥근 모서리와 넓은 여백 */
+        .image-banner {
+            padding: 40px 0;
+        }
+
+        .image-banner img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px; /* Canopy는 너무 둥근 것보다 절제된 곡선을 선호함 */
+        }
+
+        /* 스토리 섹션 */
+        .story-section {
+            padding: 120px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .split-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+        }
+
+        .split-content h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .split-content .desc {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+        }
+
+        /* 가치 카드 섹션 - 아주 얇은 선 스타일 */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background-color: #eee; /* 선처럼 보이게 만드는 기법 */
+            margin-top: 60px;
+            border: 1px solid #eee;
+        }
+
+        .value-card {
+            background-color: var(--bg-color);
+            padding: 50px 30px;
+            transition: background 0.3s;
+        }
+
+        .value-card:hover {
+            background-color: #f3f3f3;
+        }
+
+        .value-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+        }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            .hero { padding: 100px 0 60px; }
+            .split-content { grid-template-columns: 1fr; gap: 30px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .image-banner img { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="hero">
+            <span class="section-label">Established 2024</span>
+            <h1>Beautifully crafted,<br>thoughtfully curated.</h1>
+            <p>우리는 단순한 도구를 넘어, 당신의 일상과 업무가 하나의 작품이 되는 경험을 디자인합니다.</p>
+        </header>
+
+        <div class="image-banner">
+            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Office space">
+        </div>
+
+        <main class="story-section">
+            <div class="split-content">
+                <div>
+                    <span class="section-label">Our Philosophy</span>
+                    <h2>Less, but better.</h2>
+                </div>
+                <div class="desc">
+                    <p>Canopy 스타일의 핵심은 불필요한 요소를 덜어내고 본질에 집중하는 것입니다. 우리는 사용자가 기술의 복잡함에 매몰되지 않고, 오직 자신의 창의성에만 집중할 수 있는 환경을 구축하는 것을 최우선 가치로 삼습니다.</p>
+                    <br>
+                    <p>수많은 데이터와 복잡한 기능들 사이에서, 우리는 가장 아름답고 효율적인 길을 제안합니다. 이것이 우리가 정의하는 현대적인 미니멀리즘입니다.</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="section-label">Core Principles</span>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <h3>Simplicity</h3>
+                        <p>복잡한 시스템을 직관적인 경험으로 치환합니다.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Integrity</h3>
+                        <p>보이지 않는 곳의 디테일까지 완벽을 기합니다.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Empathy</h3>
+                        <p>기술보다 사람의 마음을 먼저 이해하려 노력합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
