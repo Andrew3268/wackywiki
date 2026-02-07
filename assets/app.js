@@ -225,6 +225,18 @@ function renderCategoryBar({ cats, counts, selected, onSelect }){
   });
 }
 
+// 카테고리 선택 시 chip UI(밑줄/aria-selected)를 즉시 동기화
+function setCategoryBarActive(selected){
+  const bar = document.getElementById("categoryBar");
+  if(!bar) return;
+  bar.querySelectorAll("button[data-cat]").forEach(btn=>{
+    const key = btn.getAttribute("data-cat") || "all";
+    const isOn = (key === selected);
+    btn.classList.toggle("is-active", isOn);
+    btn.setAttribute("aria-selected", isOn ? "true" : "false");
+  });
+}
+
 function getInitialSelectedCategory(counts){
   // 우선순위: URL(cat)만 허용, 그 외엔 all
   const params = new URLSearchParams(location.search);
@@ -402,10 +414,14 @@ function renderCards(posts){
     // URL 반영 + 로컬 저장
     syncCategoryToUrlAndStorage(selected);
 
+    // chip UI 즉시 반영 (밑줄 이동)
+    setCategoryBarActive(selected);
+
 
     // 데이터 소스 교체
     if(selected === "all"){
-      basePosts = await loadPostsLite();
+      // 전체는 posts.json을 로드해 "더보기"가 계속 동작하도록 함
+      basePosts = await loadPostsFull();
     }else{
       basePosts = await loadCategoryPosts(selected);
     }
@@ -430,8 +446,8 @@ function renderCards(posts){
       onSelect: (cat)=>{ void selectCategory(cat); }
     });
 
-    // 초기 데이터: 전체는 lite, 특정 카테고리는 해당 파일
-    if(selected === "all") basePosts = await loadPostsLite();
+    // 초기 데이터: 전체는 full (더보기 12개씩)
+    if(selected === "all") basePosts = await loadPostsFull();
     else basePosts = await loadCategoryPosts(selected);
 
     // 정렬 버튼

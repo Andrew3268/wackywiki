@@ -8,7 +8,8 @@
 
 const PAGE_SIZE = 12;
 
-const TAG_DIR_URL = "./data/tag/";
+// tags 페이지는 /tags 또는 /tags.html 어느 경로로 열려도 동일 동작하도록 절대경로 사용
+const TAG_DIR_URL = "/data/tag/";
 
 
 // -------------------------
@@ -205,18 +206,17 @@ document.addEventListener("DOMContentLoaded", async () => {  const qEl     = doc
   }
 
   // 1) 로드
+  // ✅ 태그별 인덱스 파일(/data/tag/{slug}.json)에서 바로 로드
   try{
-    if(!res.ok) throw new Error("posts.json 로드 실패");
-    const data = await res.json();
-    allPosts = Array.isArray(data) ? data : [];
+    allPosts = await loadTagPosts(tag);
   }catch(e){
+    console.error(e);
     setMeta({ total:0, shown:0, tagName:tag, sortDesc:true });
-    showState("글 목록을 불러오지 못했어요. /data/posts.json 경로를 확인해 주세요.");
+    showState("해당 태그의 글을 불러오지 못했어요. (태그 인덱스 파일이 없거나 경로가 잘못됐어요)");
     if(loadMoreWrap) loadMoreWrap.hidden = true;
     return;
   }
 
-  // 2) 태그 1차 필터
   const base = allPosts;
 
   // 3) 검색/정렬 적용
