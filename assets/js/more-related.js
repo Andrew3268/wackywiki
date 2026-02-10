@@ -1,11 +1,14 @@
 /**
  * more-related.js
- * post.html의 "글 더보기" 섹션: 현재 글과 같은 카테고리 글 3개를 렌더링합니다.
+ * post.html의 "글 더보기" 섹션: 현재 글과 같은 카테고리 글을 렌더링합니다(최대 3개, 최소 2개 이상일 때만 표시).
  * - 데이터: ../data/posts.json (post.html이 /posts/ 아래라는 전제)
  * - UI: 왼쪽 이미지 / 오른쪽 텍스트 (리스트형)
  */
 (function () {
   const POSTS_JSON = "../data/posts.json";
+
+  const MIN_REQUIRED = 2;
+  const SHOW_MAX = 3;
 
   function esc(s) {
     return String(s ?? "")
@@ -51,8 +54,8 @@
     const desc = document.getElementById("moreDesc");
     if (desc) {
       desc.textContent = category
-        ? `같은 카테고리( ${category} ) 글을 3개 더 보여드려요.`
-        : "같은 카테고리의 글을 3개 더 보여드려요.";
+        ? `같은 카테고리( ${category} ) 글을 더 보여드려요.`
+        : "같은 카테고리의 글을 더 보여드려요.";
     }
 
     if (!items || items.length === 0) {
@@ -128,7 +131,12 @@
     // 최신순
     related.sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
 
-    render(related.slice(0, 3), currentCategory);
+    if (related.length < MIN_REQUIRED) {
+      document.getElementById("moreEmpty")?.removeAttribute("hidden");
+      return;
+    }
+
+    render(related.slice(0, SHOW_MAX), currentCategory);
   }
 
   run();
