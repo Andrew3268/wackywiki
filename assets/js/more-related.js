@@ -10,7 +10,40 @@
   const MIN_REQUIRED = 2;
   const SHOW_MAX = 3;
 
-  function esc(s) {
+  
+  // ✅ 배포 환경에 따라 사이트가 하위 경로(/wackywiki/...)에서 서비스될 수 있어
+  // location.pathname과 posts.json의 url(/posts/...)이 정확히 일치하지 않는 경우가 있습니다.
+  // 아래 로직은 "끝 경로" 기준으로 매칭하고, 링크도 현재 베이스 경로를 자동으로 보정합니다.
+  const BASE_PREFIX = (() => {
+    const p = String(location.pathname || "");
+    const idx = p.indexOf("/posts/");
+    if (idx <= 0) return "";
+    return p.slice(0, idx); // 예: "/wackywiki"
+  })();
+
+  function resolveUrl(u) {
+    const s = String(u || "").trim();
+    if (!s) return s;
+    // 이미 베이스 프리픽스가 포함돼 있으면 그대로
+    if (BASE_PREFIX && s.startsWith(BASE_PREFIX + "/")) return s;
+    // 루트 절대경로(/posts/...)만 베이스 프리픽스 보정
+    if (BASE_PREFIX && s.startsWith("/")) return BASE_PREFIX + s;
+    return s;
+  }
+
+  function samePath(urlLike, pathLike) {
+    const a = String(urlLike || "");
+    const b = String(pathLike || "");
+    if (!a || !b) return false;
+    if (a === b) return true;
+    // decode 후 비교(한글 슬러그/공백 등 대비)
+    const da = decodeURI(a);
+    const db = decodeURI(b);
+    if (da === db) return true;
+    // 하위 경로 배포 대비: 끝 경로가 같으면 동일 글로 취급
+    return da.endsWith(db) || db.endsWith(da);
+  }
+function esc(s) {
     return String(s ?? "")
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
@@ -66,7 +99,7 @@
 
     for (const p of items) {
       const title = esc(p.title || "제목 없음");
-      const url = esc(p.url || "#");
+      const url = esc(resolveUrl(p.url || "#"));
       const date = esc(String(p.date || "").trim());
       const excerpt = esc(p.excerpt || "");
       const author = esc(p.author || ""); // 있으면 사용, 없으면 공백
@@ -103,7 +136,7 @@
     const list = document.getElementById("moreList");
     if (!list) return;
 
-    const currentPath = location.pathname;
+    const currentPath = decodeURI(location.pathname);
 
     let posts = [];
     try {
@@ -116,7 +149,7 @@
       return;
     }
 
-    const currentItem = posts.find((p) => pathOf(p.url) === currentPath) || null;
+    const currentItem = posts.find((p) => samePath(pathOf(p.url), currentPath)) || null;
     const currentCategory = currentItem ? normalizeCategory(currentItem) : null;
 
     if (!currentCategory) {
@@ -126,7 +159,7 @@
 
     const related = posts
       .filter((p) => normalizeCategory(p) === currentCategory)
-      .filter((p) => pathOf(p.url) !== currentPath);
+      .filter((p) => !samePath(pathOf(p.url), currentPath));
 
     // 최신순
     related.sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
