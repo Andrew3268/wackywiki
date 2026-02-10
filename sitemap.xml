@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://example.pages.dev/</loc></url>
-  <url><loc>https://example.pages.dev/posts/hello.html</loc></url>
-  <url><loc>https://example.pages.dev/posts/second.html</loc></url>
-  <url><loc>https://wackywiki.io/posts/how-to-find-shampoo.html</loc></url>
-  <url><loc>https://example.pages.dev/posts/how-to-find-good-papper.html</loc></url>
+  <url><loc>https://example.pages.dev/posts/test01.html</loc></url>
+  <url><loc>https://example.pages.dev/posts/test02.html</loc></url>
   <url>
     <loc>https://example.com/tags.html</loc>
     <changefreq>weekly</changefreq>
