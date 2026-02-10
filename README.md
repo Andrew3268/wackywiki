@@ -7,8 +7,8 @@
 - index.html: 글 목록(자동)
 - data/posts.json: 글 목록 데이터(목차)
 - posts/*.html: 글 상세(정적 HTML)
-- assets/app.js: posts.json을 읽어 목록 렌더링
-- assets/styles.css: 기본 스타일
+- assets/css/js/app.js: posts.json을 읽어 목록 렌더링
+- assets/js/styles.css: 기본 스타일
 - robots.txt / sitemap.xml: SEO 기본
 
 ## 새 글 추가 방법(가장 중요)
