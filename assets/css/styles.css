@@ -290,12 +290,13 @@ blockquote{
    ✅ 글 더보기(같은 카테고리 3개) - post.html
 ========================= */
 .more-section{
-  margin: 28px 0 0;
+  margin: 28px auto 0 auto;
   padding: 26px 0 34px;
   background: var(--bg-body);
   width:760px;
   border:1px solid #ccc;
   border-radius:15px;
+  
 }
 .more-head{
   display: flex;
@@ -332,6 +333,7 @@ blockquote{
   .more-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px){
+  .more-section{width:100%;border:none;}
   .more-head{ flex-direction: column; align-items: flex-start; }
   .more-grid{ grid-template-columns: 1fr; }
 }
@@ -362,7 +364,7 @@ blockquote{
 .more-list{
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap:20px;
 }
 
 /* 항목 */
@@ -449,6 +451,7 @@ blockquote{
   .more-thumb{
     aspect-ratio: 16 / 10;
   }
+  .more-list{padding:0;gap:50px;}
 }
 
 
