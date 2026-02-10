@@ -293,6 +293,9 @@ blockquote{
   margin: 28px 0 0;
   padding: 26px 0 34px;
   background: var(--bg-body);
+  width:760px;
+  border:1px solid #ccc;
+  border-radius:15px;
 }
 .more-head{
   display: flex;
@@ -300,9 +303,7 @@ blockquote{
   justify-content: space-between;
   gap: 14px;
   margin: 6px 0 14px;
-  width:760px;
-  border:1px solid #ccc;
-  border-radius:15px;
+
 }
 .more-title{
   margin: 0;

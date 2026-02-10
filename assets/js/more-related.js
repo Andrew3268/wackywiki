@@ -31,18 +31,41 @@
     return s;
   }
 
-  function samePath(urlLike, pathLike) {
-    const a = String(urlLike || "");
-    const b = String(pathLike || "");
-    if (!a || !b) return false;
-    if (a === b) return true;
-    // decode 후 비교(한글 슬러그/공백 등 대비)
-    const da = decodeURI(a);
-    const db = decodeURI(b);
-    if (da === db) return true;
-    // 하위 경로 배포 대비: 끝 경로가 같으면 동일 글로 취급
-    return da.endsWith(db) || db.endsWith(da);
-  }
+  
+function normalizePath(input) {
+  let s = String(input || "");
+  if (!s) return "";
+  // URL 전체가 들어오면 pathname만 추출
+  try { s = new URL(s, location.origin).pathname; } catch (e) {}
+  // query/hash 제거
+  s = s.split("?")[0].split("#")[0];
+
+  // 디코딩(한글 슬러그 대비)
+  try { s = decodeURI(s); } catch (e) {}
+
+  // 끝 슬래시 제거
+  if (s.length > 1) s = s.replace(/\/+$/, "");
+
+  // .html 제거(Pretty URL 대응)
+  s = s.replace(/\.html$/i, "");
+
+  return s;
+}
+
+function samePath(urlLike, pathLike) {
+  const a0 = String(urlLike || "");
+  const b0 = String(pathLike || "");
+  if (!a0 || !b0) return false;
+
+  const a = normalizePath(a0);
+  const b = normalizePath(b0);
+
+  if (!a || !b) return false;
+  if (a === b) return true;
+
+  // 하위 경로 배포 대비: 끝 경로가 같으면 동일 글로 취급
+  return a.endsWith(b) || b.endsWith(a);
+}
 function esc(s) {
     return String(s ?? "")
       .replaceAll("&", "&amp;")
@@ -136,7 +159,7 @@ function esc(s) {
     const list = document.getElementById("moreList");
     if (!list) return;
 
-    const currentPath = decodeURI(location.pathname);
+    const currentPath = location.pathname;
 
     let posts = [];
     try {
