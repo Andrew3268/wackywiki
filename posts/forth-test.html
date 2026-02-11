@@ -366,40 +366,46 @@
     </article>
   </main>
 
-  <aside class="more-section" aria-labelledby="moreTitle" role="complementary">
+<aside class="more-section" aria-labelledby="moreTitle" aria-describedby="moreDesc">
     <div class="wrap">
-      <header class="more-head">
-        <h2 class="more-title" id="moreTitle">관련 글</h2>
-        <p class="more-desc" id="moreDesc">같은 카테고리에서 함께 읽기 좋은 글을 모았어요.</p>
-      </header>
+        <header class="more-head">
+            <h2 class="more-title" id="moreTitle">관련 글</h2>
+            <p class="more-desc" id="moreDesc">같은 카테고리에서 함께 읽기 좋은 글을 모았어요.</p>
+        </header>
 
-      <!-- ✅ 검색엔진이 “내부 링크 묶음”으로 이해하기 좋은 구조 -->
-      <nav class="more-nav" aria-label="관련 글 목록">
-        <ul class="more-list" id="moreList" role="list">
-          <!-- JS가 li들을 채웁니다 -->
-        </ul>
-      </nav>
+        <!-- ✅ 내부 링크 묶음(탐색 랜드마크) -->
+        <nav class="more-nav" aria-labelledby="moreNavLabel">
+            <h3 class="sr-only" id="moreNavLabel">관련 글 목록</h3>
 
-      <!-- ✅ JS 미실행 대비(최소 링크 제공 권장) -->
-      <noscript>
-        <div class="more-noscript">
-          <p class="more-noscript__title">관련 글 더 보기</p>
-          <ul class="more-list" role="list">
-            <li class="more-item">
-              <a href="/" aria-label="홈에서 전체 글 보기">홈에서 전체 글 보기</a>
-            </li>
-          </ul>
+            <!-- ✅ ul은 기본이 list이므로 role 제거 -->
+            <ul class="more-list" id="moreList">
+                <!-- JS가 li를 채웁니다: <li><a>...</a></li> -->
+            </ul>
+        </nav>
+
+        <!-- ✅ JS 미실행 대비 -->
+        <noscript>
+            <div class="more-noscript">
+                <p class="more-noscript__title">관련 글 더 보기</p>
+
+                <!-- ✅ noscript도 동일한 시맨틱 유지 -->
+                <ul class="more-list">
+                    <li class="more-li">
+                        <a class="more-item" href="/" aria-label="홈에서 전체 글 보기">홈에서 전체 글 보기</a>
+                    </li>
+                </ul>
+            </div>
+        </noscript>
+
+        <!-- ✅ 비어있음 상태: 상태 메시지는 live region으로 충분 -->
+        <div class="more-empty" id="moreEmpty" hidden>
+            <div class="empty-card" role="status" aria-live="polite" aria-atomic="true">
+                <p class="empty-title">같은 카테고리 글이 아직 충분하지 않아요.</p>
+                <p class="empty-desc">
+                    <a href="/" class="more-home-link">홈(목록)에서 다른 글을 확인해 보세요.</a>
+                </p>
+            </div>
         </div>
-      </noscript>
-
-      <div class="more-empty" id="moreEmpty" hidden>
-        <div class="empty-card" role="status" aria-live="polite">
-          <p class="empty-title">같은 카테고리 글이 아직 충분하지 않아요.</p>
-          <p class="empty-desc">
-            <a href="/" class="more-home-link">홈(목록)에서 다른 글을 확인해 보세요.</a>
-          </p>
-        </div>
-      </div>
     </div>
 
     <script src="../assets/js/more-related.js" defer></script>
