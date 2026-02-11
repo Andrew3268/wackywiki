@@ -3,6 +3,7 @@
   <url><loc>https://example.pages.dev/posts/third-test.html</loc></url>
   <url><loc>https://example.pages.dev/posts/second-test.html</loc></url>
   <url><loc>https://example.pages.dev/posts/first-test.html</loc></url>
+  <url><loc>https://example.pages.dev/posts/forth-test.html</loc></url>
   <url>
     <loc>https://example.com/tags.html</loc>
     <changefreq>weekly</changefreq>
